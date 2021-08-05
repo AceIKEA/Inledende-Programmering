@@ -1,0 +1,32 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.*;
+public class CheckMail{ 
+	public static void main(String[] args) {
+		Scanner console = new Scanner(System.in);
+		String ss = console.next();
+		System.out.println(emailValidering(ss)); 
+		/* Jeg printer metoden samtidig med jeg kalder den, dette gør vi istedet for at først gemmer en værdi vi får retuneret fra metoden 
+		   og så begefter printe den, denne metode fjerne redundans. 
+		*/
+		console.close();
+		
+	}
+	public static boolean emailValidering(String emailadresse) { 
+		/* Laver metode, Boolean, som skal tjekke vores imput, om det er en godkendt e-mailadresse så skal den retunere en "true", hvis ikke skal den retunere "false".
+		   Bruger Regular Expression, Regex, til at tjekke om den imputtede e-mail overholder kravene. E-mailen bliver samelignet med strengen og ser om den matcher.
+		   Til at starte med "spørger" strengen, med tegnet "^" om at e-mailen matcher de forskellige tegn i den første [] store og små bogstaver, tegn osv. Den medtager ikke æ, ø og å.
+		   Så tjekker vi om der kun er ét "@"
+		   Dernæst tjekke om der efter "@" er en streng før det første "." og dernæst at der tilsidst er en streng efter det sidste punktum. Den medtager ikke tal og tegn efter det sidste punktum. 
+		 */
+		
+		
+		String ssRegex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((([a-zA-Z\\-0-9!#$%&'*+/=?^_`{|}~-]+\\.)+[a-zA-Z]{2,}))$";
+		// Nu laver den et mønster "ssPat" som skal samle "tjek-strengn" som er angivet over, og gemme den som et mønster.
+		Pattern ssPat = Pattern.compile(ssRegex,Pattern.CASE_INSENSITIVE);
+		// Nu bruges en matcher til at tjekke om mønsteret passer med den e-mail der indtastets i consolen.
+		Matcher Matcher = ssPat.matcher(emailadresse);
+		// Til sidst retuneres fundet "true eller false" til main hvor den så printes.
+		return Matcher.find();
+	}
+}
