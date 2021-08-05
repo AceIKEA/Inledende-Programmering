@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class CheckTelefonnr {
+    public static void main(String[] args){
+
+        Scanner console = new Scanner(System.in);
+        String s = console.nextLine();
+        System.out.println(VerificeringAfNummer(s));
+    }
+        // s må ikke være ingenting (null).
+    public static boolean VerificeringAfNummer(String s){
+        if(s == null){
+            return false;
+        }
+        //Jeg skifter ud alle "\\" (mellemrum) med ingenting "". Sådan at den kun får siffrer da der må ikke väre andet en siffre.
+
+        String nummer = s.replaceAll("\\s+","");
+        /*
+           Her bruger jeg en "if" hvor at det fjerde tal efter +45 må ikke være 0.
+           Jeg indtaster "3" fordi java taler o, 1, 2, 3 osv..
+        */
+        if(nummer.startsWith("+45")){
+            if(nummer.charAt(3) == '0'){
+                return false;
+            }
+            /*
+               Jeg bruger mig af en substring som siger at nummeret længde starter
+               på den 3 karakter.
+            */
+            nummer = nummer.substring(3,nummer.length());
+
+        }
+
+            if(nummer.length()!=8){
+                return false;
+            }
+            // Hvis karakteren ikke er et tal returner false.
+            for(int i = 0; i < nummer.length(); i++){
+                if(!Character.isDigit(nummer.charAt(i))) {
+                    return false;
+                }
+            }
+            return true;
+    }
+}
