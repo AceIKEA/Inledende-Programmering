@@ -1,0 +1,42 @@
+import java.awt.Point;
+import java.util.*;
+import java.lang.Math; 
+
+public class NextSquare{
+	public static void main(String[] args) {
+		
+		//Intialising scanner 
+		Scanner input = new Scanner(System.in);
+		
+		//Defining string input for user inpu
+		int n = input.nextInt();
+		
+		//Printing method
+		System.out.println(nextSquare(n));
+		
+		}
+		
+		public static int nextSquare(int n) 
+		{
+			
+			for (int j = n+1; j<1000000; j++) //Creating a loop over a large number to be sure that there is a value for the specified integer.
+			{
+				double k = Math.sqrt(j); //using Math.sqrt gives decimal number, which is why I use DOUBLE
+							
+				if (Math.floor(k)==k) //If the number that has been squarerooted is even, then the rounded down value is the same as the original value
+				{
+					return j; //returns the value that then is a square larger than the specified input
+				}
+				
+				else
+				{
+					continue; //else, it continues to look for a integer that is a square number
+					
+				}
+				
+			} //loop
+			return n; 	 	
+			
+		} //method
+
+} //class
