@@ -1,0 +1,69 @@
+import java.util.*;
+
+import java.util.Scanner;
+
+public class NextPrime{
+
+	public static void main(String[] args) {
+		
+		//Intialising scanner 
+				Scanner input = new Scanner(System.in);
+				
+				//Defining string input for user input
+				int n = input.nextInt();
+				
+				//Printing method
+//				System.out.println(isPrime(n));
+				System.out.println(nextPrime(n));
+				
+				}
+
+			public static boolean isPrime(int n) {
+				
+				
+				for (int j=n-1; j>1; j--) { //creating a decreasing loop, since we are testing if the number can be divided by a smaller number and return an integer
+					//It is important that the loop doesn't start on the same value as the integer, or end on 1, because these are of course dividible by the specified
+					//integer.
+					
+					int modulus = n % j; //if i get a number it isnt a prime number
+					
+					if (modulus == 0) { //Using modulus, if i get a number that is zero, then the specified integer can be divided by the value of the loop, 
+						// and therefore it isnt a prime number - so we return a false statement.
+						return false;
+					}
+						
+					if (modulus > 0) { // //Here we continue for the next value, moving towards zero, contrinuing if the loop value isnt divisible by the integer.
+						continue;
+							
+					}
+					return true; //It then returns true if there are no false returns througout the loop.
+					
+				}
+				
+				if (n <= 1) { //Since the integer that is specified has to bigger than 1.
+					return false; 
+					}
+				
+				return true;			
+			}
+			
+	public static int nextPrime(int n) {
+			
+		int value = 1;
+		
+		for (int j=n+1; j<1000000; j++) { //looping over a large number, so we can be certain there is a prime number after the specified integer.
+						
+			
+			if (isPrime(j) == true) { //using the method from exercise 1a) we can determine if a value is a prime number.
+				value = j;
+				return value;	
+			}
+			
+			else {
+				continue;
+			}
+			
+		}
+		return value;
+	}
+}
