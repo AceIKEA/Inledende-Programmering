@@ -1,0 +1,578 @@
+import java.awt.Point;
+import java.util.Random;
+import java.util.*;
+
+public class CatMouse {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int n = input.nextInt();
+		//Mark line below as comment for testing of Opgave 3c):
+		int s = input.nextInt();
+		int t = input.nextInt();
+		
+		try {
+			/* For the sake of easyness, we've marked all outputs as comments. 
+			 * 
+			 * For testing of each method, simply un-comment coresponding method-call.
+			 */
+			
+			
+			// Unmark as comment below for testing of Opgave 3 a):
+//			runRandomSimulation(n,s,t);
+			
+			// Unmark as comment below for testing of Opgave 3 b)
+//			runTwoCatsRandom(n,s,t);
+			
+			// unmark as comment below for testing of Opgave 3 c)
+			/*
+			 * OBS!!
+			 * In opgave 3 c), the "int s = input.nextInt();" or line 10, should be marked 
+			 * as comment in order to work.
+			 */
+//			runStrategicSimulation(n, t);
+				
+		} catch (IllegalArgumentException e) {
+			System.out.println("Illegal Parameters !");			
+		}
+		
+	}
+	
+	public static void runRandomSimulation(int n, int s, int t) {
+		
+		//A random generator for the mouses steps
+		Random direction = new Random();
+		
+		if(n > 0 && s > 0 && s <= n && t >= 0) {
+			
+			//The grid is set from 0 to (n-1) as the 0 is also a coordinate
+			n = n-1;
+			
+			Point cat = new Point();
+			
+			//The mouses position is set to middle, if the situation is .5, it gets rounded upwards.
+			Point mouse = new Point((int)Math.ceil(n/2.0),(int)Math.ceil(n/2.0));
+			
+			System.out.println("n=" + (n+1) + " s=" + s + " t=" + t);
+			System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+			System.out.print("[" + cat.x + ";" + cat.y +  "] ");
+			System.out.println();
+			
+			//The t-number of rounds gets initiated
+			for(int i = 1; i <= t; i++) {
+				
+				//A counter that keep track of the steps taken in x-coordinates
+				int catMove = 0;
+				
+				/* The mouses steps in x-coordinates is set to an random number between -3 to 3.
+				 * And then the steps in y-coordinates can only be the reminding steps of s
+				 * that isn't taken yet. 
+				 */
+				int xDirectionMouse = (direction.nextInt(s*2 + 1)-s);
+				int sy = (s - Math.abs(xDirectionMouse));
+				//The y-coordinates for the mouse are set to random for up or down.
+				int yDirectionMouse = direction.nextInt(2);
+				
+				//The mouse takes it steps.
+				
+				mouse.x += xDirectionMouse;
+				if (yDirectionMouse == 1) {
+					mouse.y += sy;
+				} else if (yDirectionMouse == 0) {
+					mouse.y -= sy;
+				}
+				
+				/* Boundries for the mouse,
+				 * if it steps outside of grid it is sent back to the closest grid place.  
+				*/
+				if (mouse.x < 0) {
+					mouse.x = 0;
+				}
+				if(mouse.x > n) {
+					mouse.x = n;
+				}
+				if(mouse.y < 0) {
+					mouse.y = 0;
+				}
+				if(mouse.y > n) {						
+					mouse.y = n;						
+				}
+				
+				//Two variables to hold the difference in x- and y-coordinates.
+				int difX = (mouse.x - cat.x);
+				int difY = (mouse.y - cat.y);
+
+				//The cat takes it steps.
+				
+				//Decides whether to step in x-coordinates or y-coordinates.
+				if (difX > difY) {
+					if (mouse.x != cat.x) {
+						
+						if(difX <= s && difX > 0) {
+							cat.x += difX;
+							//The counter only gets positive values.
+							catMove += Math.abs(difX);
+							
+						}else if (difX <= s && difX < 0) {
+							cat.x += difX;
+							catMove += Math.abs(difX);
+						}else if (difX > s && difX < 0) {
+							cat.x -= s;
+							catMove += s;
+						}else {
+							cat.x += s;
+							catMove += s;
+						}
+						
+					}
+					
+					if (mouse.y != cat.y && catMove != s) {
+						
+						if(difY < (s - catMove)) {							
+							cat.y += difY;
+								
+						}else if (difY < 0) {
+							cat.y -= (s - catMove) ;
+						}else {
+							cat.y += (s - catMove);
+						}
+					}
+					
+					if (cat.x < 0) {
+						cat.x = 0;
+					}
+					if(cat.x > n) {
+						cat.x = n;
+					}
+					if(cat.y < 0) {
+						cat.y = 0;
+					}
+					if(cat.y > n) {						
+						cat.y = n;						
+					}						
+					
+				 //The same step-code here, if chosen to go in y-coordinates first.	
+				}else {
+					if (mouse.y != cat.y) {
+						
+						if(difY <= s && difY > 0) {
+							cat.y += difY;
+							catMove += Math.abs(difY);
+							
+						}else if (difY < s && difY < 0) {
+							cat.y += difY;
+							catMove += Math.abs(difY);
+						}else if (difY > s && difY < 0) {
+							cat.y -= s;
+							catMove += s;
+						}else {
+							cat.y += s;
+							catMove += s;
+						}
+						
+					}
+					
+					if (mouse.x != cat.x && catMove != s) {
+						
+						if(difX < (s - catMove)) {							
+							cat.x += difX;
+								
+						}else if (difX < 0) {
+							cat.x -= (s - catMove) ;
+						}else {
+							cat.x += (s - catMove);
+						}
+					}
+					
+					if (cat.x < 0) {
+						cat.x = 0;
+					}
+					if(cat.x > n) {
+						cat.x = n;
+					}
+					if(cat.y < 0) {
+						cat.y = 0;
+					}
+					if(cat.y > n) {						
+						cat.y = n;						
+					}
+				}
+									
+				System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+				System.out.print("[" + cat.x + ";" + cat.y +  "]");
+				System.out.println();
+				
+				if (mouse.x == cat.x && mouse.y == cat.y) {
+					System.out.print("Catch!");	
+					break;
+				}					
+				
+			}
+
+		} else {
+			throw new IllegalArgumentException();
+		}
+
+	}
+	
+	public static void runTwoCatsRandom(int n, int s, int t) {
+		
+		//A random generator for the mouses steps
+		Random direction = new Random();
+		
+		if(n > 0 && s > 0 && s <= n && t >= 0) {
+			
+			n = n-1;
+			int sk = (int)Math.ceil(s/2.0);
+			Point cat = new Point();
+			Point kitten = new Point();
+			//The mouses position is set to middle, if the situation is .5, it gets rounded upwards.
+			Point mouse = new Point((int)Math.ceil(n/2.0),(int)Math.ceil(n/2.0));
+			
+			System.out.println("n=" + (n+1) + " s=" + s + " t=" + t);
+			System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+			System.out.print("[" + kitten.x + ";" + kitten.y +  "]");
+			System.out.print("[" + cat.x + ";" + cat.y +  "] ");
+			System.out.println();
+			
+			//The t-number of rounds gets initiated
+			for(int i = 1; i <= t; i++) {
+				
+				//A counter that keep track of the steps taken in x-coordinates for both cat and kitten.
+				int catMove = 0;
+				int kittenMove = 0;
+				
+				/* The mouses steps in x-coordinates is set to an random number between -3 to 3.
+				 * And then the steps in y-coordinates can only be the reminding steps of s
+				 * that isn't taken yet. 
+				 */
+				int xDirectionMouse = (direction.nextInt(s*2 + 1)-s);
+				int sy = (s - Math.abs(xDirectionMouse));
+				//The y-coordinates for the mouse are set to random for up or down
+				int yDirectionMouse = direction.nextInt(2);
+				
+				//The mouse takes it steps.
+				
+				mouse.x += xDirectionMouse;
+				if (yDirectionMouse == 1) {
+					mouse.y += sy;
+				} else if (yDirectionMouse == 0) {
+					mouse.y -= sy;
+				}
+				
+				if (mouse.x < 0) {
+					mouse.x = 0;
+				}
+				if(mouse.x > n) {
+					mouse.x = n;
+				}
+				if(mouse.y < 0) {
+					mouse.y = 0;
+				}
+				if(mouse.y > n) {						
+					mouse.y = n;						
+				}
+				
+				//Two variables to hold the difference in x- and y-coordinates.
+				int difX = (mouse.x - cat.x);
+				int difY = (mouse.y - cat.y);
+				int difXk = (mouse.x - kitten.x);
+				int difYk = (mouse.y - kitten.y);
+				
+				
+				//The cat takes it steps
+				
+				//Decides whether to step in x-coordinates or y-coordinates.
+				if (difX > difY) {
+					if (mouse.x != cat.x) {
+						
+						if(difX < s && difX > 0) {
+							cat.x += difX;
+							catMove += Math.abs(difX);
+							
+						}else if (difX < s && difX < 0) {
+							cat.x += difX;
+							catMove += Math.abs(difX);
+						}else if (difX > s && difX < 0) {
+							cat.x -= s;
+							catMove += s;
+						}else {
+							cat.x += s;
+							catMove += s;
+						}
+						
+					}
+					
+					if (mouse.y != cat.y && catMove != s) {
+						
+						if(difY < (s - catMove)) {							
+							cat.y += difY;
+								
+						}else if (difY < 0) {
+							cat.y -= (s - catMove) ;
+						}else {
+							cat.y += (s - catMove);
+						}
+					}
+					
+					if (cat.x < 0) {
+						cat.x = 0;
+					}
+					if(cat.x > n) {
+						cat.x = n;
+					}
+					if(cat.y < 0) {
+						cat.y = 0;
+					}
+					if(cat.y > n) {						
+						cat.y = n;						
+					}						
+					
+				} else {
+					if (mouse.y != cat.y) {
+						
+						if(difY <= s && difY > 0) {
+							cat.y += difY;
+							catMove += Math.abs(difY);
+							
+						}else if (difY < s && difY < 0) {
+							cat.y += difY;
+							catMove += Math.abs(difY);
+						}else if (difY > s && difY < 0) {
+							cat.y -= s;
+							catMove += s;
+						}else {
+							cat.y += s;
+							catMove += s;
+						}
+						
+					}
+					
+					if (mouse.x != cat.x && catMove != s) {
+						
+						if(difX < (s - catMove)) {							
+							cat.x += difX;
+								
+						}else if (difX < 0) {
+							cat.x -= (s - catMove) ;
+						}else {
+							cat.x += (s - catMove);
+						}
+					}
+					
+					if (cat.x < 0) {
+						cat.x = 0;
+					}
+					if(cat.x > n) {
+						cat.x = n;
+					}
+					if(cat.y < 0) {
+						cat.y = 0;
+					}
+					if(cat.y > n) {						
+						cat.y = n;						
+					}
+				}
+				
+				//The kitten takes it's steps
+				
+				//The staps are just like the cats, but it uses the variable s
+				if (difXk > difYk) {
+					if (kitten.x != mouse.x) {
+						
+						if(difXk < sk && difXk > 0) {
+							kitten.x += difXk;
+							kittenMove += Math.abs(difXk);
+							
+						}else if (difXk < sk && difXk < 0) {
+							kitten.x += difXk;
+							kittenMove += Math.abs(difXk);
+						}else if (difXk > sk && difXk < 0) {
+							kitten.x -= sk;
+							kittenMove += sk;
+						}else {
+							kitten.x += sk;
+							kittenMove += sk;
+						}
+						
+					}
+					
+					if (mouse.y != kitten.y && kittenMove != sk) {
+						
+						if(difYk < (sk - kittenMove)) {							
+							kitten.y += difYk;
+								
+						}else if (difYk < 0) {
+							kitten.y -= (sk - kittenMove) ;
+						}else {
+							kitten.y += (sk - kittenMove);
+						}
+					}
+					
+					if (kitten.x < 0) {
+						kitten.x = 0;
+					}
+					if(kitten.x > n) {
+						kitten.x = n;
+					}
+					if(kitten.y < 0) {
+						kitten.y = 0;
+					}
+					if(kitten.y > n) {						
+						kitten.y = n;						
+					}						
+					
+				} else {
+					if (mouse.y != kitten.y) {
+						
+						if(difYk <= sk && difYk > 0) {
+							kitten.y += difYk;
+							kittenMove += Math.abs(difYk);
+							
+						}else if (difYk < sk && difYk < 0) {
+							kitten.y += difYk;
+							kittenMove += Math.abs(difYk);
+						}else if (difYk > sk && difYk < 0) {
+							kitten.y -= sk;
+							kittenMove += sk;
+						}else {
+							kitten.y += sk;
+							kittenMove += sk;
+						}
+						
+					}
+					
+					if (mouse.x != kitten.x && kittenMove != sk) {
+						
+						if(difXk < (sk - catMove)) {							
+							kitten.x += difXk;
+								
+						}else if (difXk < 0) {
+							kitten.x -= (sk - kittenMove) ;
+						}else {
+							kitten.x += (sk - kittenMove);
+						}
+					}
+					
+					if (kitten.x < 0) {
+						kitten.x = 0;
+					}
+					if(kitten.x > n) {
+						kitten.x = n;
+					}
+					if(kitten.y < 0) {
+						kitten.y = 0;
+					}
+					if(kitten.y > n) {						
+						kitten.y = n;						
+					}
+				}
+				
+				System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+				System.out.print("[" + kitten.x + ";" + kitten.y +  "]");
+				System.out.print("[" + cat.x + ";" + cat.y +  "] ");
+	
+				System.out.println();
+				
+				if (mouse.x == cat.x && mouse.y == cat.y) {
+					System.out.print("Catch!");	
+					break;
+				}
+				if (kitten.x == mouse.x && kitten.y == mouse.y) {
+					System.out.print("Catch!");	
+					System.out.println();
+					break;
+				}
+				
+			}
+				
+		} else {
+			throw new IllegalArgumentException();
+		}
+	
+	}
+	
+	public static void runStrategicSimulation(int n, int t) {
+		
+		Random direction = new Random();
+		
+		if(n > 0  && t >= 0) {
+			
+			n = n-1;
+			Point cat = new Point();
+			//The mouses position is set to middle, if the situation is .5, it gets rounded upwards.
+			Point mouse = new Point((int)Math.ceil(n/2.0),(int)Math.ceil(n/2.0));
+			
+			System.out.println("n=" + (n+1) + " t=" + t);
+			System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+			System.out.print("[" + cat.x + ";" + cat.y +  "] ");
+			System.out.println();
+
+			//This code won't have any while-loops, as the goal is to make it infinite until the rounds are used.
+			if(mouse.y != cat.y && mouse.x != cat.x) {
+				for(int i = 1; i <= t; i++) {
+				
+					//The mouse takes its steps.
+					int difMx = Math.abs(mouse.x - cat.x);
+					int difMy = Math.abs(mouse.y - cat.y);
+					int mDirection = direction.nextInt(2);
+					
+					//It starts to move when the cat is 1 x- or y-coordinate from it's position.
+					if(difMx == 1 && difMy == 0) {
+						if(mouse.y == 0) {
+							mouse.y += 1;
+						}else if(mouse.y == n) {
+							mouse.y -= 1;
+						}else {
+							if(mDirection == 1) {
+								mouse.y += 1;
+							}else if (mDirection == 0) {
+								mouse.y -= 1;
+							}
+						}
+						
+					}else if(difMx == 0 && difMy == 1) {
+						if(mouse.x == 0) {
+							mouse.x += 1;
+						}else if(mouse.x == n) {
+							mouse.x -= 1;
+						} else {
+							if(mDirection == 1) {
+								mouse.x += 1;
+							}else if (mDirection == 0) {
+								mouse.x -= 1;
+							}
+					
+						}	
+						
+					}	
+											
+					//The cat takes it steps
+					if(mouse.x > cat.x) {
+						cat.x++;
+					}else if(mouse.x < cat.x) {
+						cat.x--;
+					}else if(mouse.y > cat.y) {
+						cat.y++;
+					}else if(mouse.y < cat.y) {
+						cat.y--;
+					}
+										
+					System.out.print("[" + mouse.x + ";" + mouse.y + "] ");
+					System.out.print("[" + cat.x + ";" + cat.y +  "]");
+					System.out.println();
+					
+					if (mouse.x == cat.x && mouse.y == cat.y) {
+						System.out.print("Catch!");	
+						break;
+					}					
+				
+			    }
+				
+			}
+		} else {
+			throw new IllegalArgumentException();
+		}
+
+    }
+	
+}
