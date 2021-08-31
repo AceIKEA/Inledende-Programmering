@@ -1,0 +1,30 @@
+// Here the package implements the original class in order to use it.
+package Excercise1;
+
+import java.util.Arrays;
+
+public class SorteretTabelTest {
+	public static void main(String[] args) {
+		
+		int[] array = {1,5,7,12,14};
+		int[] array2 = {2,3,4,8,19};	
+		int array1 = 7;
+		
+		SorteretTabel a = new SorteretTabel(array);
+//		System.out.println(a);
+		
+		SorteretTabel b = new SorteretTabel(array1);
+//		System.out.println(b);
+		
+		SorteretTabel c = new SorteretTabel();
+//		System.out.println(c);
+		
+		SorteretTabel d = new SorteretTabel(array2);
+		SorteretTabel e = new SorteretTabel(a, d);
+		System.out.println(e);
+		System.out.println(e.exists(13));
+		System.out.println(e.find(14));
+
+	}
+
+}
