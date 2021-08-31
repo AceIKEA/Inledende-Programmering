@@ -1,0 +1,20 @@
+package Excercise3;
+
+public class TPtest {
+	public static void main(String[] args) {
+		
+		int width = 44;
+		int height = 28;
+		int[] initial = { 17 };
+		
+		TrianglePattern test = new TrianglePattern(width, height, initial) ;
+		
+		System.out.print(test);
+		
+		for (int i = 0; i < width; i++) {
+//			System.out.print("[" + grid[0][i] + "]");
+		}
+		
+	}
+
+}
