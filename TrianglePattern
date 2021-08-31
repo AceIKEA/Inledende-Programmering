@@ -1,0 +1,137 @@
+// The package is implemented in order for the testruns.
+package xxx;
+
+import java.util.Arrays;
+
+public class TrianglePattern {
+	
+	//Number of indexes in each row / columns
+	int indexes;
+	
+	//Number of rows
+	int rows;
+	
+	//The cells where seed is planted in first row
+	int[] firstSeeds;
+	
+	//Specific row
+	int row;
+	
+	//Specific column
+	int col;
+	
+	//Specific cell (from left to right in row)
+	int j;
+	
+	int[][] grid = new int [rows][indexes];
+	
+	
+	public int getN() {
+		return indexes;
+	}
+	
+	public int getH() {
+		return rows;
+	}
+	
+	public int[] getInitial() {
+		return firstSeeds;
+	}
+	
+	//Constructor
+	public TrianglePattern(int n, int h, int[] initial) {
+		
+		this.indexes = n;
+		this.rows = h;
+		this.firstSeeds = initial;
+		//initialed indexes
+		int ii = 0;
+		//Un-initialed indexes
+		int uii = 0;
+		
+		//Makes an n x h gridwith array, for easier access
+		int[][] grid2 = new int [rows][indexes];
+		grid = grid2;
+		
+		/* These both initialize the grid[][] cell, with
+		 * row = 0 and column = all of initial's values
+		 * (if initial = {3, 5, 17} the rows 3,5,17 are marked as 1)
+		 */
+		for (int i = 0; i < firstSeeds.length; i++) {
+			grid2[0][firstSeeds[i]] = 1;
+			ii++;
+		}
+		
+		//Everything else marked as zeros
+		for (int k = 0; k < indexes; k++) {
+			if ( grid2[0][k] != 1) {
+				grid2[0][k] = 0;
+				uii++;
+			}
+			
+		}
+			
+		for (row = 1; row < rows; row++) {
+			
+			int i = 1;
+			int j = 1;
+			
+			//Checks the patterns
+			if (grid[j - 1][i] == 0 && grid[j][i] == 0 && grid[(j+1)][i] == 0) {
+				grid[row][i] = 0;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 0 && j == 0 && grid[(j+1)][i] == 1) {
+				grid[row][i] = 1;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 0 && j == 1 && grid[(j+1)][i] == 0) {
+				grid[row][i] = 1;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 0 && j == 1 && grid[(j+1)][i] == 1) {
+				grid[row][i] = 1;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 1 && j == 0 && grid[(j+1)][i] == 0) {
+				grid[row][i] = 1;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 1 && j == 0 && grid[(j+1)][i] == 1) {
+				grid[row][i] = 0;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 1 && j == 1 && grid[(j+1)][i] == 0) {
+				grid[row][i] = 0;
+				i += 2;
+				j += 2;
+			} else if(grid[j - 1][i] == 1 && j == 1 && grid[(j+1)][i] == 1) {
+				grid[row][i] = 0;
+				i += 2;
+				j += 2;
+			}		
+			
+		}
+			
+	}
+	
+	//Checks one specific cell if empty or filled(0 or 1)
+	public int getValueAt(int r, int c) {
+		
+		if (grid[r][c] == 1) {
+			return 1;
+		}
+		
+		return 0;
+		
+	}
+	
+	public String toString() {
+		
+		//Finds and prints 2d array
+		String stringArray = Arrays.deepToString(grid);	
+		return stringArray;
+		
+	}
+
+}
