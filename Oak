@@ -1,0 +1,24 @@
+package Excercise3;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class Oak extends Tree {
+
+	Point pos;
+	double size;
+
+	public Oak(Point p, double s) {
+		this.pos = p;
+		this.size = s;
+	}
+	
+	public Color getColor() {
+		return Color.blue;
+	}
+	
+	public double getSize() {
+		return this.size;
+	}
+
+}
