@@ -1,0 +1,40 @@
+package Excercise3;
+
+import java.awt.Point;
+
+public class treetest {
+	public static void main(String[] args) {
+	    
+		int noOftrees = 20;
+	     Tree[] trees; // Array containing the trees
+	
+
+	        //Ceate an array of type Tree
+	        trees = new Tree[noOftrees];
+	        // fill the array
+	        int index = 0;
+	        for (int i = 0; i < trees.length/3; i++) {
+	            trees[i] = new Oak(ConstAndUtil.getLegalRandomPosition(),1.0);
+	        }
+	        for (int i = 2*trees.length/3; i < trees.length-1; i++) {
+	            trees[i] = new Birch(ConstAndUtil.getLegalRandomPosition(),2.0);
+	        }
+	        for (int i = trees.length/3; i < 2*trees.length/3; i++) {
+	            trees[i] = new Spruce(ConstAndUtil.getLegalRandomPosition(),1.0);
+	        }
+	        trees[trees.length-1] = new MagicTree(new Point(ConstAndUtil.FORESTSIZE/2,
+	        		ConstAndUtil.FORESTSIZE/2),3.0);
+	        
+	        
+	        System.out.println(trees[3].getColor());
+	        System.out.println(trees[12].getColor());
+	        System.out.println(trees[4].getPosition().x);
+	        
+	}
+	
+	public void positionTree(Tree tree) {
+	
+		
+	}
+
+}
