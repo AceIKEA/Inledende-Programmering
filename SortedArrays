@@ -1,0 +1,155 @@
+package Excercise1;
+
+import java.util.Arrays;
+
+public class SorteretTabel {
+	
+	int[] array = {};
+	
+
+	public int[] get() {
+		return array;
+	}
+		
+	//First constructor
+	// While loop checks to see if every integer in array is sorted
+	public SorteretTabel(int [] a) {
+		
+		if (a.length == 1 || a.length == 0) {
+			array = a;
+		}
+		
+		for (int i = 0; i < a.length - 1; i++) {
+			
+			if (a[i] > a[i+1]) {
+
+				int[] array2 = {};
+				array = array2;
+				
+				break;
+
+			} else {
+				array = a;
+			}
+			
+		}
+			
+	}
+	
+
+	//Second constructor
+	//The original array gets copied with an integer longer in order to be able to choose.
+	public SorteretTabel(int a) {
+		
+		int[] array2 = Arrays.copyOf(array, array.length + 1);
+		
+		array2[array2.length - 1] = a;
+		
+		array = array2;
+		
+	}
+	
+	//Third constructor
+	public SorteretTabel() {
+
+	}
+		
+	public SorteretTabel(SorteretTabel t1, SorteretTabel t2) {
+		
+		int[] a1 = t1.get();
+		int[] a2 = t2.get();
+		
+		array = Arrays.copyOf(array, a1.length + a2.length);
+				
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		
+		
+		//While loops are used to combine the two arrays together so they stay sorted
+		
+		while ( i < a1.length && j < a2.length) {
+					
+			if (a1[i] <= a2[j]) {
+				array[k] = a1[i];
+				i++;
+			} else {
+				array[k] = a2[j];
+				j++;
+			}
+			
+			k++;
+
+		}
+		
+		while(i < a1.length) {
+			array[k] = a1[i];
+			i++;
+			k++;
+		}
+		
+		while(j < a2.length) {
+			array[k] = a2[j];
+			j++;
+			k++;
+			
+		}
+	
+	}
+		
+	public boolean exists(int holger) {
+		
+		if (search(holger) > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public int find(int holger) {			
+		
+		return search(holger);
+	}
+	
+	private int search(int h) {
+		
+		int[] a = array; 
+		int firstIndex = 0;
+		int lastIndex = a.length - 1;
+			
+		
+		while (firstIndex <= lastIndex) {
+			
+			//The variable mid is inside the while-loop so it gets updated
+			int mid = (firstIndex + lastIndex) / 2;
+			
+			if (h == a[mid]){
+				return mid;
+			}
+			
+			if (h < a[mid]) {
+				/*The end of array gets "pushed down" to middle (new roof, which stops at mid -1
+				 * because mid is allready checked.
+				*/
+				lastIndex = mid - 1;
+				
+			}else if (h > a[mid]){
+				//Same as the upper half, but with lower half instead.
+				firstIndex = mid + 1;
+				
+			}
+			
+		}	
+
+		return -1;
+	}
+	
+	
+	//Method toString
+	public String toString() {
+		String stringArray = Arrays.toString(array);	
+		return stringArray;
+		
+	}
+
+}
