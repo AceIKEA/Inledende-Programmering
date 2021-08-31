@@ -1,0 +1,142 @@
+package Excercise2;
+
+import java.lang.Math;
+
+public class Broek {
+	
+	int numerator;
+	
+	int denominator;
+	
+	//common denominator
+	int cd;
+	
+	String e = "Illegal parameters";
+	
+	public Broek(int t, int n) {
+		
+		if (t > 0 || t < 0) {
+			
+			this.numerator = t;
+			this.denominator = n;
+
+		}
+		else {
+			throw new IllegalArgumentException(e);
+		}
+		
+	} 
+	
+	//return values
+	public int getNum() {
+		return numerator;
+		
+	}
+	
+	public int getDen() {
+		return denominator;
+	}	
+	
+	//method plus
+	public void plus(Broek f) {	
+		cd = denominator*f.getDen();
+		numerator = (numerator*f.getDen())+(f.getNum()*denominator);
+		
+		if (numerator%cd==0) { //even numbers that are divisible by each other
+			if (numerator < cd) {
+				numerator = 1;
+				denominator = cd/numerator; 
+			}
+		}
+	
+		else if (numerator%2==0 && denominator%2==0) { //even numbers that aren't divisible with each other
+			int i = 0;
+			while ((numerator/(i*2))%2==0) {
+				i = i+1;
+			}
+			numerator = numerator/i;
+			denominator = denominator/i;
+		}
+		
+		else {
+			denominator = cd;
+		}
+		
+	}
+	
+	//method minus
+	public void minus(Broek f) {	
+		cd = denominator*f.getDen();
+		numerator = (numerator*f.getDen())-(f.getNum()*denominator);
+		
+		if (numerator%cd==0) { //even numbers that are dividsble by each other
+			if (numerator < cd) {
+				numerator = 1;
+				denominator = cd/numerator; 
+			}
+		}
+	
+		else if (numerator%2==0 && denominator%2==0) { //even numbers that arent divisible with each other
+			int i = 0;
+			while ((numerator/(i*2))%2==0) {
+				i = i+1;
+			}
+			numerator = numerator/i;
+			denominator = denominator/i;
+		}
+		
+		else {
+			denominator = cd;
+		}
+	}
+	
+	//method gange
+	public void gange(Broek f) {
+		
+		numerator = numerator*f.getNum();
+		denominator = denominator*f.getDen();
+		
+		/* Eclipse would in this case print out both as negative,
+		 * but that is the same as positive, so they are multiplied
+		 * by (-1) in order to give the right output.
+		 */
+		if (denominator < 0 && numerator < 0 ) {
+			denominator = denominator*(-1);
+			numerator = numerator*(-1);
+		} else if(denominator < 0 && numerator > 0) {
+			denominator = denominator*(-1);
+			numerator = numerator*(-1);
+		}
+		
+		
+	}
+	
+	//method division
+	public void divider(Broek f) {	
+		
+		denominator = denominator*f.getNum();
+		numerator = numerator*f.getDen();
+		
+		if (denominator < 0 && numerator < 0 ) {
+			denominator = denominator*(-1);
+			numerator = numerator*(-1);
+		} else if(denominator < 0 && numerator > 0) {
+			denominator = denominator*(-1);
+			numerator = numerator*(-1);
+		}
+	}
+	
+	//method reciprok
+	public void reciprok() {	
+		int temp = numerator;
+		numerator = denominator;	
+		denominator = temp;
+	}
+	
+	// method toString
+	public String toString() {
+		return numerator+"/"+denominator;
+		
+	}
+	
+}
