@@ -1,0 +1,164 @@
+package Excercise1;
+
+import java.util.*;
+
+public class FindTenthSmallest{	
+	
+	public FindTenthSmallest(long[] a){
+
+	}
+	
+	public static long findTenthSmallest(long[] ts) {
+		
+		//Variables for the ten smallest values and their position
+		long firstS = Long.MAX_VALUE;
+		int firstP = 0;
+		long secondS = Long.MAX_VALUE;
+		int secondP = 0;
+		long thirdS = Long.MAX_VALUE;
+		int thirdP = 0;
+		long fourthS = Long.MAX_VALUE;
+		int fourthP = 0;
+		long fifthS = Long.MAX_VALUE;
+		int fifthP = 0;
+		long sixthS = Long.MAX_VALUE;
+		int sixthP = 0;
+		long seventhS = Long.MAX_VALUE;
+		int seventhP = 0;
+		long eighthS = Long.MAX_VALUE;
+		int eighthP = 0;
+		long ninthS = Long.MAX_VALUE;
+		int ninthP = 0;
+		long tenthS = Long.MAX_VALUE;
+
+		/* Goes through the length of ts, one of the ten smallest variables cannot get a value
+		 * at a position if another smaller value already has that value/position
+		 */
+		
+		for (int i = 0; i < ts.length; i++) {
+			if(ts[i] < firstS) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = fifthS;
+				fifthS = fourthS;
+				fourthS = thirdS;
+				thirdS = secondS;
+				secondS = firstS;
+				firstS = ts[i];
+				firstP = i;
+				
+			} else if (ts[i] < secondS && i != firstP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = fifthS;
+				fifthS = fourthS;
+				fourthS = thirdS;
+				thirdS = secondS;
+				secondS = ts[i];
+				secondP = i;
+				
+			} else if (ts[i] < thirdS && i != firstP && i != secondP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = fifthS;
+				fifthS = fourthS;
+				fourthS = thirdS;
+				thirdS = ts[i];
+				thirdP = i;
+				
+			}else if (ts[i] < fourthS && i != firstP && i != secondP && i != thirdP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = fifthS;
+				fifthS = fourthS;
+				fourthS = ts[i];
+				fourthP = i;
+				
+			}else if (ts[i] < fifthS && i != firstP && i != secondP && i != thirdP && i != fourthP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = fifthS;
+				fifthS = ts[i];
+				fifthP = i;
+				
+			}else if (ts[i] < sixthS && i != firstP && i != secondP && i != thirdP && i != fourthP && i != fifthP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = sixthS;
+				sixthS = ts[i];
+				sixthP = i;
+				
+			}else if (ts[i] < seventhS && i != firstP && i != secondP && i != thirdP && i != fourthP && i != fifthP && i != sixthP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = seventhS;
+				seventhS = ts[i];
+				seventhP = i;
+				
+			}else if (ts[i] < eighthS && i != firstP && i != secondP && i != thirdP && i != fourthP && i != fifthP && i != sixthP && i != seventhP) {
+				tenthS = ninthS;
+				ninthS = eighthS;
+				eighthS = ts[i];
+				eighthP = i;
+				
+			}else if (ts[i] < ninthS && i != firstP && i != secondP && i != thirdP && i != fourthP && i != fifthP && i != sixthP && i != seventhP && i != eighthP) {
+				tenthS = ninthS;
+				ninthS = ts[i];
+				ninthP = i;
+				
+			}else if (ts[i] < tenthS && i != firstP && i != secondP && i != thirdP && i != fourthP && i != fifthP && i != sixthP && i != seventhP && i != eighthP && i != ninthP) {
+				tenthS = ts[i];
+			}
+				
+		}
+
+		return tenthS;
+		
+		
+		///////////////////////////////////  Method 2  /////////////////////////////////////////
+	
+		
+//		ArrayList<Long> tsList = new ArrayList<Long>();
+//
+//		//Creates an arraylist with the same values as ts
+//		for(int j = 0; j < ts.length; j++) {
+//			tsList.add(ts[j]);
+//		}
+//		
+//		//Temp keeps track of at which index the current smallest number is
+//		long temp = Long.MAX_VALUE;
+//		long smallest = Long.MAX_VALUE;
+//
+//		for(int k = 0; k < 10; k++) {
+//			
+//			//Resets smallest's value in order to find the next smallest value
+//			smallest = Long.MAX_VALUE;
+//			
+//			for(int t = 0; t < tsList.size(); t++) {
+//				if(tsList.get(t) < smallest) {
+//					smallest = tsList.get(t);
+//					temp = tsList.get(t);
+//				}
+//				
+//			}
+//			
+//			//Removes the smallest value 
+//			tsList.remove(temp);
+//		}
+//				
+//		return smallest;
+		
+	}
+	
+}
