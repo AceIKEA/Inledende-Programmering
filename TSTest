@@ -1,0 +1,46 @@
+package Excercise1;
+
+import java.util.Arrays;
+public class Test01 {
+
+	public static void main(String[] args) {
+
+		long[] ls = new long[25];
+		int i;
+		
+//		ls[0]=12;
+//		ls[1]=33;
+//		ls[2]=4;
+//		ls[3]=6;
+//		ls[4]=14;
+//		ls[5]=16;
+//		ls[6]=45;
+//		ls[7]=10;
+//		ls[8]=9;
+//		ls[9]=26;
+//		ls[10]=12;
+//		ls[11]=8;
+//		ls[12]=19;
+//		ls[13]=23;
+//		ls[14]=13;
+		
+		
+		
+//		for(i = 0; i< 20; i++) {
+//			ls[i] = 700;
+//		}
+//		for(; i< ls.length; i++) {
+//			ls[i] = 700;
+//		}
+		
+		
+//		System.out.println(Arrays.toString(ls));
+		
+		
+		
+		System.out.println(FindTenthSmallest.findTenthSmallest(ls));
+		System.out.println(Arrays.toString(ls));
+	}
+
+}
+ 
