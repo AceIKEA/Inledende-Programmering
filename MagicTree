@@ -1,0 +1,24 @@
+package Excercise3;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class MagicTree extends Tree{
+
+	protected Point pos;
+	protected double size;
+
+	public MagicTree(Point p, double s) {
+		this.pos = p;
+		this.size = s;
+	}
+	
+	public Color getColor() {
+		return Color.cyan;
+	}
+	
+	public double getSize() {
+		return this.size;
+	}
+
+}
